@@ -1,0 +1,15 @@
+//
+// Prefix header for all source files of the 'ArtKit' target in the 'ArtKit' project.
+//
+
+#import <CoreFoundation/CoreFoundation.h>
+#import <ApplicationServices/ApplicationServices.h>
+#import "CFRuntime.h"
+#import "CFBase.h"
+#import "ACBase.h"
+#import "ACMemoryMappedFile.h"
+#import "ACThemeStructures.h"
+#import "ACSharedArt.h"
+#import "ACSharedArtImageSource.h"
+#import "ACSharedArtImageDestination.h"
+#import "ACUtilities.h"

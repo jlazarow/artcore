@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		F5002D27100F3AEC00E2F7A5 /* ACUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = F5002D25100F3AEC00E2F7A5 /* ACUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5002D28100F3AEC00E2F7A5 /* ACUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */; };
+		F50503B310056222004ADAE2 /* ACArt.h in Headers */ = {isa = PBXBuildFile; fileRef = F50503B110056222004ADAE2 /* ACArt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F50503B410056222004ADAE2 /* ACArt.c in Sources */ = {isa = PBXBuildFile; fileRef = F50503B210056222004ADAE2 /* ACArt.c */; };
+		F505F54C10545F6E0021D698 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F505F54B10545F6E0021D698 /* Accelerate.framework */; };
+		F51569F6100AD0B500A4C43A /* ACArtElement.h in Headers */ = {isa = PBXBuildFile; fileRef = F51569F4100AD0B500A4C43A /* ACArtElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F51569F7100AD0B500A4C43A /* ACArtElement.c in Sources */ = {isa = PBXBuildFile; fileRef = F51569F5100AD0B500A4C43A /* ACArtElement.c */; };
+		F51847A2104C740500D025D2 /* CFInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847A1104C740500D025D2 /* CFInternal.h */; };
+		F51847A4104C741600D025D2 /* CFRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847A3104C741600D025D2 /* CFRuntime.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F51847A6104C743E00D025D2 /* CFBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847A5104C743E00D025D2 /* CFBase.h */; };
+		F51847E9104D90F800D025D2 /* ACMemoryMappedFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847E7104D90F800D025D2 /* ACMemoryMappedFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F51847EA104D90F800D025D2 /* ACMemoryMappedFile.c in Sources */ = {isa = PBXBuildFile; fileRef = F51847E8104D90F800D025D2 /* ACMemoryMappedFile.c */; };
+		F56D86FF100D6B5D00C5A8ED /* ACSharedArtImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F56D8700100D6B5D00C5A8ED /* ACSharedArtImageSource.c in Sources */ = {isa = PBXBuildFile; fileRef = F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */; };
+		F56D870A100D6D2200C5A8ED /* ACSharedArtImageDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F56D870B100D6D2200C5A8ED /* ACSharedArtImageDestination.c in Sources */ = {isa = PBXBuildFile; fileRef = F56D8709100D6D2200C5A8ED /* ACSharedArtImageDestination.c */; };
+		F595C53B100AD71300D82096 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F595C53A100AD71300D82096 /* ApplicationServices.framework */; };
+		F5CF57851052CD70006C2654 /* ACThemeStructures.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CF57841052CD70006C2654 /* ACThemeStructures.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5CF57EC10543823006C2654 /* ACBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CF57EA10543823006C2654 /* ACBase.h */; };
+		F5CF57ED10543823006C2654 /* ACBase.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CF57EB10543823006C2654 /* ACBase.c */; };
+		F5D002AF1024F906006EE1E2 /* ACArtImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D002AD1024F906006EE1E2 /* ACArtImageSource.h */; };
+		F5D002B01024F906006EE1E2 /* ACArtImageSource.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D002AE1024F906006EE1E2 /* ACArtImageSource.c */; };
+		F5D4687D10055E5C00A44EFB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5D4687C10055E5C00A44EFB /* CoreFoundation.framework */; };
+		F5D468841005609700A44EFB /* ACSharedArt.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D468821005609700A44EFB /* ACSharedArt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5D468851005609700A44EFB /* ACSharedArt.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D468831005609700A44EFB /* ACSharedArt.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		32DBCF5E0370ADEE00C91783 /* ArtCore_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtCore_Prefix.pch; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* ArtCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ArtCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5002D25100F3AEC00E2F7A5 /* ACUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACUtilities.h; sourceTree = "<group>"; };
+		F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACUtilities.c; sourceTree = "<group>"; };
+		F50503B110056222004ADAE2 /* ACArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACArt.h; sourceTree = "<group>"; };
+		F50503B210056222004ADAE2 /* ACArt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACArt.c; sourceTree = "<group>"; };
+		F505F54B10545F6E0021D698 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
+		F51569F4100AD0B500A4C43A /* ACArtElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACArtElement.h; sourceTree = "<group>"; };
+		F51569F5100AD0B500A4C43A /* ACArtElement.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACArtElement.c; sourceTree = "<group>"; };
+		F51847A1104C740500D025D2 /* CFInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFInternal.h; sourceTree = "<group>"; };
+		F51847A3104C741600D025D2 /* CFRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFRuntime.h; sourceTree = "<group>"; };
+		F51847A5104C743E00D025D2 /* CFBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFBase.h; sourceTree = "<group>"; };
+		F51847E7104D90F800D025D2 /* ACMemoryMappedFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMemoryMappedFile.h; sourceTree = "<group>"; };
+		F51847E8104D90F800D025D2 /* ACMemoryMappedFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACMemoryMappedFile.c; sourceTree = "<group>"; };
+		F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSharedArtImageSource.h; sourceTree = "<group>"; };
+		F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACSharedArtImageSource.c; sourceTree = "<group>"; };
+		F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSharedArtImageDestination.h; sourceTree = "<group>"; };
+		F56D8709100D6D2200C5A8ED /* ACSharedArtImageDestination.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACSharedArtImageDestination.c; sourceTree = "<group>"; };
+		F595C53A100AD71300D82096 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		F5CF57841052CD70006C2654 /* ACThemeStructures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACThemeStructures.h; sourceTree = "<group>"; };
+		F5CF57EA10543823006C2654 /* ACBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACBase.h; sourceTree = "<group>"; };
+		F5CF57EB10543823006C2654 /* ACBase.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACBase.c; sourceTree = "<group>"; };
+		F5D002AD1024F906006EE1E2 /* ACArtImageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACArtImageSource.h; sourceTree = "<group>"; };
+		F5D002AE1024F906006EE1E2 /* ACArtImageSource.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACArtImageSource.c; sourceTree = "<group>"; };
+		F5D4687C10055E5C00A44EFB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		F5D468821005609700A44EFB /* ACSharedArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSharedArt.h; sourceTree = "<group>"; };
+		F5D468831005609700A44EFB /* ACSharedArt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACSharedArt.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5D4687D10055E5C00A44EFB /* CoreFoundation.framework in Frameworks */,
+				F595C53B100AD71300D82096 /* ApplicationServices.framework in Frameworks */,
+				F505F54C10545F6E0021D698 /* Accelerate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* ArtCore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* ArtKit */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = ArtKit;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+				F5D4687C10055E5C00A44EFB /* CoreFoundation.framework */,
+				F595C53A100AD71300D82096 /* ApplicationServices.framework */,
+				F505F54B10545F6E0021D698 /* Accelerate.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F51847A5104C743E00D025D2 /* CFBase.h */,
+				F51847A1104C740500D025D2 /* CFInternal.h */,
+				F51847A3104C741600D025D2 /* CFRuntime.h */,
+				F5D468821005609700A44EFB /* ACSharedArt.h */,
+				F5D468831005609700A44EFB /* ACSharedArt.c */,
+				F50503B110056222004ADAE2 /* ACArt.h */,
+				F50503B210056222004ADAE2 /* ACArt.c */,
+				F5D002AD1024F906006EE1E2 /* ACArtImageSource.h */,
+				F5D002AE1024F906006EE1E2 /* ACArtImageSource.c */,
+				F51569F4100AD0B500A4C43A /* ACArtElement.h */,
+				F51569F5100AD0B500A4C43A /* ACArtElement.c */,
+				F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */,
+				F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */,
+				F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */,
+				F56D8709100D6D2200C5A8ED /* ACSharedArtImageDestination.c */,
+				F5002D25100F3AEC00E2F7A5 /* ACUtilities.h */,
+				F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */,
+				F51847E7104D90F800D025D2 /* ACMemoryMappedFile.h */,
+				F51847E8104D90F800D025D2 /* ACMemoryMappedFile.c */,
+				F5CF57841052CD70006C2654 /* ACThemeStructures.h */,
+				F5CF57EA10543823006C2654 /* ACBase.h */,
+				F5CF57EB10543823006C2654 /* ACBase.c */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF5E0370ADEE00C91783 /* ArtCore_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5D468841005609700A44EFB /* ACSharedArt.h in Headers */,
+				F50503B310056222004ADAE2 /* ACArt.h in Headers */,
+				F51569F6100AD0B500A4C43A /* ACArtElement.h in Headers */,
+				F56D86FF100D6B5D00C5A8ED /* ACSharedArtImageSource.h in Headers */,
+				F56D870A100D6D2200C5A8ED /* ACSharedArtImageDestination.h in Headers */,
+				F5002D27100F3AEC00E2F7A5 /* ACUtilities.h in Headers */,
+				F5D002AF1024F906006EE1E2 /* ACArtImageSource.h in Headers */,
+				F51847A2104C740500D025D2 /* CFInternal.h in Headers */,
+				F51847A4104C741600D025D2 /* CFRuntime.h in Headers */,
+				F51847A6104C743E00D025D2 /* CFBase.h in Headers */,
+				F51847E9104D90F800D025D2 /* ACMemoryMappedFile.h in Headers */,
+				F5CF57851052CD70006C2654 /* ACThemeStructures.h in Headers */,
+				F5CF57EC10543823006C2654 /* ACBase.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DC2EF4F0486A6940098B216 /* ArtCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "ArtCore" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArtCore;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = ArtKit;
+			productReference = 8DC2EF5B0486A6940098B216 /* ArtCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ArtCore" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* ArtKit */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* ArtCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5D468851005609700A44EFB /* ACSharedArt.c in Sources */,
+				F50503B410056222004ADAE2 /* ACArt.c in Sources */,
+				F51569F7100AD0B500A4C43A /* ACArtElement.c in Sources */,
+				F56D8700100D6B5D00C5A8ED /* ACSharedArtImageSource.c in Sources */,
+				F56D870B100D6D2200C5A8ED /* ACSharedArtImageDestination.c in Sources */,
+				F5002D28100F3AEC00E2F7A5 /* ACUtilities.c in Sources */,
+				F5D002B01024F906006EE1E2 /* ACArtImageSource.c in Sources */,
+				F51847EA104D90F800D025D2 /* ACMemoryMappedFile.c in Sources */,
+				F5CF57ED10543823006C2654 /* ACBase.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ArtCore_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_NAME = ArtCore;
+				SKIP_INSTALL = NO;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ArtCore_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_NAME = ArtCore;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LLVM_LTO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+				SYMROOT = /Users/jlazarow/Developer/Projects/ArtCoreSharedBuild/build;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "ArtCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "ArtCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
