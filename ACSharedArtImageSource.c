@@ -84,7 +84,7 @@ static ACSharedArtImageSourceRef __ACSharedArtImageSourceInit(CFAllocatorRef all
 	isrc = (struct __ACSharedArtImageSource *) _CFRuntimeCreateInstance(allocator, __kACSharedArtImageSourceTypeID,size,NULL);
 	CFRetain(owner);
 	isrc->owner = owner;
-	
+	isrc->headerIndex = headerIndex;
 	void * headerBytes = ACSharedArtGetBytePtr(isrc->owner) + ACSharedArtGetImageHeaderOffsetForIndex(isrc->owner,headerIndex);
 	isrc->header = (struct __ACSharedArtImageHeader *) (headerBytes);
 
@@ -96,9 +96,14 @@ static ACSharedArtImageSourceRef __ACSharedArtImageSourceInit(CFAllocatorRef all
 	kSharedArtImageSourceTypeImage
 	kSharedArtImageSourceTypePDF 
 */
-UInt16 ACSharedArtImageSourceGetType(ACSharedArtImageSourceRef isrc)
+ACSharedArtImageType ACSharedArtImageSourceGetType(ACSharedArtImageSourceRef isrc)
 {
 	return isrc->header->type;
+}
+
+bool ACSharedArtImageSourceIsSpecialHIRes(ACSharedArtImageSourceRef isrc)
+{
+	return ACSharedArtImageSourceGetEntryCount(isrc) == 1 && ACSharedArtImageSourceGetType(isrc) == kSharedArtImageTypeHIRes;
 }
 
 /*
@@ -132,7 +137,7 @@ ACSharedArtImageSourceRef ACSharedArtImageSourceCreate(ACSharedArtRef owner, CFI
 
 CGImageRef ACSharedArtImageSourceCreateImageAtIndex(ACSharedArtImageSourceRef isrc, size_t index)
 {
-	if (index > ACSharedArtImageSourceGetEntryCount(isrc) - 1)
+	if (index >= ACSharedArtImageSourceGetEntryCount(isrc))
 		return NULL;
 	
 	struct __ACSharedArtImageHeaderDataInfo dataInfoAtIndex = isrc->header->data_info[index];
@@ -160,10 +165,50 @@ CGImageRef ACSharedArtImageSourceCreateHIResImage(ACSharedArtImageSourceRef isrc
  responsible for releasing this reference when you are done. */
 CFDataRef ACSharedArtImageSourceCreateDataAtIndex(ACSharedArtImageSourceRef isrc, size_t index)
 {
-	if (index > ACSharedArtImageSourceGetEntryCount(isrc) - 1)
+	if (index >= ACSharedArtImageSourceGetEntryCount(isrc))
 		return NULL;
 	
 	struct __ACSharedArtImageHeaderDataInfo dataInfoAtIndex = isrc->header->data_info[index];
 	return CFDataCreateWithBytesNoCopy(kCFAllocatorDefault,(const UInt8 *) (ACSharedArtGetBytePtr(isrc->owner) + dataInfoAtIndex.relativeOffset +
 																			isrc->owner->header->dataOffset),dataInfoAtIndex.length,kCFAllocatorNull);
+}
+
+void ACSharedArtImageSourceWriteResourceToPathAtIndex(ACSharedArtImageSourceRef isrc, CFStringRef path, CFIndex index)
+{
+	CFURLRef baseURLRef = CFURLCreateWithFileSystemPath(kCFAllocatorDefault,path,kCFURLPOSIXPathStyle,true);
+	CFStringRef extension = __ACSharedArtImageSourceGetExtensionForWritingAtIndex(isrc, index);
+	CFURLRef urlRef = CFURLCreateWithFileSystemPathRelativeToBase(kCFAllocatorDefault,extension,kCFURLPOSIXPathStyle,false,baseURLRef);
+	ACSharedArtImageType type = ACSharedArtImageSourceGetType(isrc);
+
+	if (type == kSharedArtImageTypePDF && index == 0)
+	{
+		/* Just write the pure data */
+		CFDataRef dataRef = ACSharedArtImageSourceCreateDataAtIndex(isrc, index);
+		ACWriteDataToURL(dataRef, urlRef);
+		CFRelease(dataRef);
+	}
+	else
+	{
+		CGImageRef imgRef = ACSharedArtImageSourceCreateImageAtIndex(isrc,index);
+		ACWriteImageToURLWithType(imgRef, urlRef, kUTTypePNG);
+		CGImageRelease(imgRef);
+	}
+	
+	CFRelease(urlRef);
+	CFRelease(extension);
+	CFRelease(baseURLRef);
+}
+
+CFStringRef __ACSharedArtImageSourceGetExtensionForWritingAtIndex(ACSharedArtImageSourceRef isrc, CFIndex index)
+{
+	/* Take care of the *special hires* case first */
+	ACSharedArtImageType type = ACSharedArtImageSourceGetType(isrc);
+	
+	if (ACSharedArtImageSourceIsSpecialHIRes(isrc) || (type == kSharedArtImageTypeHIRes && index == 1))
+		return CFStringCreateWithFormat(NULL, NULL, HIRES_TEMPLATE,isrc->headerIndex);
+	
+	if (type == kSharedArtImageTypePDF && index == 0)
+		return CFStringCreateWithFormat(NULL, NULL, PDF_TEMPLATE,isrc->headerIndex);
+	
+	return CFStringCreateWithFormat(NULL, NULL, PNG_TEMPLATE,isrc->headerIndex);
 }

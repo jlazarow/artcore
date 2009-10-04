@@ -13,6 +13,8 @@ enum {
 	kSharedArtImageTypePDF = 3
 };
 
+typedef uint16_t ACSharedArtImageType;
+
 struct __ACSharedArtImageHeaderDataInfo {
 	uint16_t width; 
 	uint16_t height; 
@@ -21,7 +23,7 @@ struct __ACSharedArtImageHeaderDataInfo {
 };
 
 struct __ACSharedArtImageHeader {
-	uint16_t type;
+	ACSharedArtImageType type;
 	uint16_t entryCount; 
 	uint32_t unknown1;
 	uint32_t unknown2;

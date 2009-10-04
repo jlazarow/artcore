@@ -19,6 +19,8 @@
 #import "ACMemoryMappedFile.h"
 #import "ACThemeStructures.h"
 
+#define HEADER_OFF_LENGTH 4
+
 
 struct __ACSharedArtHeader {
 	uint16_t magic;
@@ -42,8 +44,7 @@ ACMutableSharedArtRef ACSharedArtCreateMutable(CFStringRef referencePath);
 UInt16 ACSharedArtGetImageCount(ACSharedArtRef sart);
 UInt32 ACSharedArtGetImageHeaderOffsetForIndex(ACSharedArtRef sart, CFIndex index);
 uint8_t * ACSharedArtGetBytePtr(ACSharedArtRef sart);
-void ACSharedArtWriteImagesToPath(ACSharedArtRef sart, CFStringRef path);
+void ACSharedArtWriteResourcesToPath(ACSharedArtRef sart, CFStringRef basePath);
 void ACMutableSharedArtWrite(ACMutableSharedArtRef msart, CFStringRef writePath, CFDictionaryRef destinations);
 void ACSharedArtClose(ACSharedArtRef sharedArt);
-
 struct __ACSharedArtImageHeader * _ACSharedArtGetImageHeaderForIndex(ACSharedArtRef sart, CFIndex headerIndex);

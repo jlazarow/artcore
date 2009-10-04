@@ -32,7 +32,6 @@ ACSharedArtImageDestinationRef ACSharedArtImageDestinationCreate(ACMutableShared
 bool ACSharedArtImageDestinationSetImageAtIndex(ACSharedArtImageDestinationRef idst, CGImageRef newImage, CFIndex index);
 uint16_t ACSharedArtImageDestinationGetEntryCount(ACSharedArtImageDestinationRef idst);
 uint16_t ACSharedArtImageDestinationGetType(ACSharedArtImageDestinationRef idst);
-/*bool ACSharedArtImageDestinationAddImage(ACSharedArtImageDestinationRef idest, CGImageRef imageRef);
-bool ACSharedArtImageDestinaACtionAddImageAtIndex(ACSharedArtImageDestinationRef idest, CGImageRef imageRef, size_t index);
-bool ACSharedArtImageDestinationSetHIResImage(ACSharedArtImageDestinationRef idest, CGImageRef imageRef, size_t index);
-void ACSharedArtImageDestinationAddImageFromSource(ACSharedArtImageDestinationRef idest, ACSharedArtImageSourceRef isrc, size_t index);*/
+CFDataRef ACSharedArtImageDestinationGetResourceDataAtIndex(ACSharedArtImageDestinationRef idst, CFIndex index);
+CFStringRef __ACSharedArtImageDestinationGetKeyForDataAtIndex(ACSharedArtImageDestinationRef idst, CFIndex index);
+bool ACSharedArtImageDestinationIsSpecialHIRes(ACSharedArtImageDestinationRef idst);

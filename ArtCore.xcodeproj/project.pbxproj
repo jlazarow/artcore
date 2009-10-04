@@ -12,7 +12,6 @@
 		F5002D28100F3AEC00E2F7A5 /* ACUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */; };
 		F50503B310056222004ADAE2 /* ACArt.h in Headers */ = {isa = PBXBuildFile; fileRef = F50503B110056222004ADAE2 /* ACArt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F50503B410056222004ADAE2 /* ACArt.c in Sources */ = {isa = PBXBuildFile; fileRef = F50503B210056222004ADAE2 /* ACArt.c */; };
-		F505F54C10545F6E0021D698 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F505F54B10545F6E0021D698 /* Accelerate.framework */; };
 		F51569F6100AD0B500A4C43A /* ACArtElement.h in Headers */ = {isa = PBXBuildFile; fileRef = F51569F4100AD0B500A4C43A /* ACArtElement.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F51569F7100AD0B500A4C43A /* ACArtElement.c in Sources */ = {isa = PBXBuildFile; fileRef = F51569F5100AD0B500A4C43A /* ACArtElement.c */; };
 		F51847A2104C740500D025D2 /* CFInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847A1104C740500D025D2 /* CFInternal.h */; };
@@ -20,6 +19,10 @@
 		F51847A6104C743E00D025D2 /* CFBase.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847A5104C743E00D025D2 /* CFBase.h */; };
 		F51847E9104D90F800D025D2 /* ACMemoryMappedFile.h in Headers */ = {isa = PBXBuildFile; fileRef = F51847E7104D90F800D025D2 /* ACMemoryMappedFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F51847EA104D90F800D025D2 /* ACMemoryMappedFile.c in Sources */ = {isa = PBXBuildFile; fileRef = F51847E8104D90F800D025D2 /* ACMemoryMappedFile.c */; };
+		F53451011065748E003E7DD9 /* ACImageUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = F53450FF1065748E003E7DD9 /* ACImageUtilities.h */; };
+		F53451021065748E003E7DD9 /* ACImageUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = F53451001065748E003E7DD9 /* ACImageUtilities.c */; };
+		F534510D106575F0003E7DD9 /* ACFileUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = F534510B106575F0003E7DD9 /* ACFileUtilities.h */; };
+		F534510E106575F0003E7DD9 /* ACFileUtilities.c in Sources */ = {isa = PBXBuildFile; fileRef = F534510C106575F0003E7DD9 /* ACFileUtilities.c */; };
 		F56D86FF100D6B5D00C5A8ED /* ACSharedArtImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F56D8700100D6B5D00C5A8ED /* ACSharedArtImageSource.c in Sources */ = {isa = PBXBuildFile; fileRef = F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */; };
 		F56D870A100D6D2200C5A8ED /* ACSharedArtImageDestination.h in Headers */ = {isa = PBXBuildFile; fileRef = F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,7 +47,6 @@
 		F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACUtilities.c; sourceTree = "<group>"; };
 		F50503B110056222004ADAE2 /* ACArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACArt.h; sourceTree = "<group>"; };
 		F50503B210056222004ADAE2 /* ACArt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACArt.c; sourceTree = "<group>"; };
-		F505F54B10545F6E0021D698 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		F51569F4100AD0B500A4C43A /* ACArtElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACArtElement.h; sourceTree = "<group>"; };
 		F51569F5100AD0B500A4C43A /* ACArtElement.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACArtElement.c; sourceTree = "<group>"; };
 		F51847A1104C740500D025D2 /* CFInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFInternal.h; sourceTree = "<group>"; };
@@ -52,6 +54,10 @@
 		F51847A5104C743E00D025D2 /* CFBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFBase.h; sourceTree = "<group>"; };
 		F51847E7104D90F800D025D2 /* ACMemoryMappedFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMemoryMappedFile.h; sourceTree = "<group>"; };
 		F51847E8104D90F800D025D2 /* ACMemoryMappedFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACMemoryMappedFile.c; sourceTree = "<group>"; };
+		F53450FF1065748E003E7DD9 /* ACImageUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACImageUtilities.h; sourceTree = "<group>"; };
+		F53451001065748E003E7DD9 /* ACImageUtilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACImageUtilities.c; sourceTree = "<group>"; };
+		F534510B106575F0003E7DD9 /* ACFileUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACFileUtilities.h; sourceTree = "<group>"; };
+		F534510C106575F0003E7DD9 /* ACFileUtilities.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACFileUtilities.c; sourceTree = "<group>"; };
 		F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSharedArtImageSource.h; sourceTree = "<group>"; };
 		F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ACSharedArtImageSource.c; sourceTree = "<group>"; };
 		F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSharedArtImageDestination.h; sourceTree = "<group>"; };
@@ -74,7 +80,6 @@
 			files = (
 				F5D4687D10055E5C00A44EFB /* CoreFoundation.framework in Frameworks */,
 				F595C53B100AD71300D82096 /* ApplicationServices.framework in Frameworks */,
-				F505F54C10545F6E0021D698 /* Accelerate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +113,6 @@
 				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
 				F5D4687C10055E5C00A44EFB /* CoreFoundation.framework */,
 				F595C53A100AD71300D82096 /* ApplicationServices.framework */,
-				F505F54B10545F6E0021D698 /* Accelerate.framework */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -128,25 +132,29 @@
 				F51847A5104C743E00D025D2 /* CFBase.h */,
 				F51847A1104C740500D025D2 /* CFInternal.h */,
 				F51847A3104C741600D025D2 /* CFRuntime.h */,
+				F5CF57EA10543823006C2654 /* ACBase.h */,
+				F5CF57EB10543823006C2654 /* ACBase.c */,
+				F5CF57841052CD70006C2654 /* ACThemeStructures.h */,
 				F5D468821005609700A44EFB /* ACSharedArt.h */,
 				F5D468831005609700A44EFB /* ACSharedArt.c */,
+				F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */,
+				F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */,
+				F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */,
+				F56D8709100D6D2200C5A8ED /* ACSharedArtImageDestination.c */,
 				F50503B110056222004ADAE2 /* ACArt.h */,
 				F50503B210056222004ADAE2 /* ACArt.c */,
 				F5D002AD1024F906006EE1E2 /* ACArtImageSource.h */,
 				F5D002AE1024F906006EE1E2 /* ACArtImageSource.c */,
 				F51569F4100AD0B500A4C43A /* ACArtElement.h */,
 				F51569F5100AD0B500A4C43A /* ACArtElement.c */,
-				F56D86FD100D6B5D00C5A8ED /* ACSharedArtImageSource.h */,
-				F56D86FE100D6B5D00C5A8ED /* ACSharedArtImageSource.c */,
-				F56D8708100D6D2200C5A8ED /* ACSharedArtImageDestination.h */,
-				F56D8709100D6D2200C5A8ED /* ACSharedArtImageDestination.c */,
-				F5002D25100F3AEC00E2F7A5 /* ACUtilities.h */,
-				F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */,
 				F51847E7104D90F800D025D2 /* ACMemoryMappedFile.h */,
 				F51847E8104D90F800D025D2 /* ACMemoryMappedFile.c */,
-				F5CF57841052CD70006C2654 /* ACThemeStructures.h */,
-				F5CF57EA10543823006C2654 /* ACBase.h */,
-				F5CF57EB10543823006C2654 /* ACBase.c */,
+				F5002D26100F3AEC00E2F7A5 /* ACUtilities.c */,
+				F5002D25100F3AEC00E2F7A5 /* ACUtilities.h */,
+				F53450FF1065748E003E7DD9 /* ACImageUtilities.h */,
+				F53451001065748E003E7DD9 /* ACImageUtilities.c */,
+				F534510B106575F0003E7DD9 /* ACFileUtilities.h */,
+				F534510C106575F0003E7DD9 /* ACFileUtilities.c */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -193,6 +201,8 @@
 				F51847E9104D90F800D025D2 /* ACMemoryMappedFile.h in Headers */,
 				F5CF57851052CD70006C2654 /* ACThemeStructures.h in Headers */,
 				F5CF57EC10543823006C2654 /* ACBase.h in Headers */,
+				F53451011065748E003E7DD9 /* ACImageUtilities.h in Headers */,
+				F534510D106575F0003E7DD9 /* ACFileUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +271,8 @@
 				F5D002B01024F906006EE1E2 /* ACArtImageSource.c in Sources */,
 				F51847EA104D90F800D025D2 /* ACMemoryMappedFile.c in Sources */,
 				F5CF57ED10543823006C2654 /* ACBase.c in Sources */,
+				F53451021065748E003E7DD9 /* ACImageUtilities.c in Sources */,
+				F534510E106575F0003E7DD9 /* ACFileUtilities.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,9 +7,6 @@
  *
  */
 
-#define HEADER_OFF_LENGTH 4
-
-
 enum {
 	kACSharedArtImmutable = 0,
 	kACSharedArtMutable = 1,
@@ -113,6 +110,7 @@ void ACMutableSharedArtWrite(ACMutableSharedArtRef msart, CFStringRef writePath,
 	CFRetain(destinations);
 	CFRetain(writePath);
 	CFIndex sizeWithZeroData = msart->header->dataOffset;
+	/* outputData is a scratch buffer to write the changes as well as the "common" data from the refernece SArtFile */
 	CFMutableDataRef outputData = CFDataCreateMutable(NULL, 0);
 	CFDataSetLength(outputData, sizeWithZeroData);
 	uint8_t * bytePtr = ACSharedArtGetBytePtr(msart);
@@ -128,12 +126,14 @@ void ACMutableSharedArtWrite(ACMutableSharedArtRef msart, CFStringRef writePath,
 		struct __ACSharedArtImageHeader * oldHeader = (struct __ACSharedArtImageHeader *) (bytePtr + headerOffset);
 		for (CFIndex entryIdx = 0; entryIdx < oldHeader->entryCount; entryIdx++)
 		{
-			/* We must do this every inner loop iteration since the MutableBytePtr is subject to change as we modify it */
+			/* We must do this every iteration since the MutableBytePtr is subject to change as we modify it */
 			struct __ACSharedArtImageHeader * newHeader = (struct __ACSharedArtImageHeader *) (CFDataGetMutableBytePtr(outputData) + headerOffset);
-			ACSharedArtImageDestinationRef ref = (ACSharedArtImageDestinationRef) CFDictionaryGetValue(destinations, CFNumberCreate(NULL, kCFNumberCFIndexType , &imageIdx));
+			ACSharedArtImageDestinationRef destinationRef = (ACSharedArtImageDestinationRef) CFDictionaryGetValue(destinations, CFNumberCreate(NULL, kCFNumberCFIndexType , &imageIdx));
 			newHeader->data_info[entryIdx].relativeOffset = CFDataGetLength(outputData) - sizeWithZeroData;
-			if (!ref)
+			/* Check first if we have any pending changes for this ACSharedArtImageDestinationRef */
+			if (!destinationRef)
 			{
+				/* Write the old data */
 				newHeader->data_info[entryIdx].width = oldHeader->data_info[entryIdx].width;
 				newHeader->data_info[entryIdx].height = oldHeader->data_info[entryIdx].height;
 				newHeader->data_info[entryIdx].length = oldHeader->data_info[entryIdx].length;
@@ -141,50 +141,26 @@ void ACMutableSharedArtWrite(ACMutableSharedArtRef msart, CFStringRef writePath,
 			}
 			else 
 			{
+				CFDataRef newData = ACSharedArtImageDestinationGetResourceDataAtIndex(destinationRef, entryIdx);
+				CFRetain(newData);
 				if (newHeader->type == kSharedArtImageTypePDF)
 				{
+					/* PDFs don't change size */
 					newHeader->data_info[entryIdx].width = oldHeader->data_info[entryIdx].width;
 					newHeader->data_info[entryIdx].height = oldHeader->data_info[entryIdx].height;
-					
-					if (entryIdx == 0)
-					{
-						CFDataRef pdfData = CFDictionaryGetValue(ref->data,PDF_DATA_KEY);
-						CFRetain(pdfData);
-						newHeader->data_info[entryIdx].length = CFDataGetLength(pdfData);
-						CFDataAppendBytes(outputData, CFDataGetBytePtr(pdfData), newHeader->data_info[entryIdx].length);
-						CFRelease(pdfData);
-					}
-					else if (entryIdx == 1) {
-						CGImageRef pdfImage = (CGImageRef) CFDictionaryGetValue(ref->data,PDF_IMAGE_KEY);
-						CFRetain(pdfImage);
-						newHeader->data_info[entryIdx].width = (uint16_t) CGImageGetWidth(pdfImage);
-						newHeader->data_info[entryIdx].height = (uint16_t) CGImageGetHeight(pdfImage);
-						newHeader->data_info[entryIdx].length = (uint32_t) 4 * newHeader->data_info[entryIdx].width * newHeader->data_info[entryIdx].height;
-						CFDataRef imageData = ACImageGetData(pdfImage);
-						CFDataAppendBytes(outputData, 
-										  CFDataGetBytePtr(imageData), 4 * newHeader->data_info[entryIdx].width * newHeader->data_info[entryIdx].height);
-						CFRelease(imageData);
-						CFRelease(pdfImage);
-					}
-
+					newHeader->data_info[entryIdx].length = (uint32_t) CFDataGetLength(newData);
+					CFDataAppendBytes(outputData, CFDataGetBytePtr(newData), newHeader->data_info[entryIdx].length);					
 				}
 				else {
-					CFStringRef keyToUse;
-					if ((newHeader->type == kSharedArtImageTypeHIRes && entryIdx == 1)
-						|| (newHeader->type == kSharedArtImageTypeHIRes && entryIdx == 0 && newHeader->entryCount == 1))
-						keyToUse = HIRES_IMAGE_KEY;
-					else 
-						keyToUse = REG_IMAGE_KEY;
-					CGImageRef image = (CGImageRef) CFDictionaryGetValue(ref->data, keyToUse);
-					CFRetain(image);
-					newHeader->data_info[entryIdx].width = (uint16_t) CGImageGetWidth(image);
-					newHeader->data_info[entryIdx].height = (uint16_t) CGImageGetHeight(image);
-					newHeader->data_info[entryIdx].length = (uint32_t) 4 * newHeader->data_info[entryIdx].width * newHeader->data_info[entryIdx].height;
-					CFDataRef imageData = ACImageGetData(image);
-					CFDataAppendBytes(outputData, 
-									  CFDataGetBytePtr(imageData), 4 * newHeader->data_info[entryIdx].width * newHeader->data_info[entryIdx].height);
-					CFRelease(image);
-					CFRelease(imageData);
+					/* Actually need the image for height,width */
+					CGImageRef newImage = (CGImageRef) CFDictionaryGetValue(destinationRef->data,
+																			__ACSharedArtImageDestinationGetKeyForDataAtIndex(destinationRef, entryIdx));
+					CFRetain(newImage);
+					newHeader->data_info[entryIdx].width = (uint16_t) CGImageGetWidth(newImage);
+					newHeader->data_info[entryIdx].height = (uint16_t) CGImageGetHeight(newImage);
+					newHeader->data_info[entryIdx].length = (uint32_t) CFDataGetLength(newData);
+					CFDataAppendBytes(outputData, CFDataGetBytePtr(newData), newHeader->data_info[entryIdx].length);
+					CFRelease(newImage);
 				}
 			}
 
@@ -193,6 +169,7 @@ void ACMutableSharedArtWrite(ACMutableSharedArtRef msart, CFStringRef writePath,
 	}
 	
 	SInt32 err;
+	/* Actually write the finished outputData to the fs */
 	CFURLWriteDataAndPropertiesToResource(CFURLCreateWithString(NULL,writePath,NULL) , outputData, NULL, &err);	
 	if (err != 0)
 		fprintf(stderr, "ACSharedArt Error: Writing of new file to disk failed with err = %d", err);
@@ -206,65 +183,21 @@ void ACMutableSharedArtWritePatchPropertyList(CFDictionaryRef destinations)
 {
 }
 
-void ACSharedArtWriteImagesToPath(ACSharedArtRef sart, CFStringRef path)
+void ACSharedArtWriteResourcesToPath(ACSharedArtRef sart, CFStringRef basePath)
 {
-	for (int index = 0; index < ACSharedArtGetImageCount(sart); index++)
+	UInt16 imageCount = ACSharedArtGetImageCount(sart);
+	for (CFIndex imageIndex = 0; imageIndex < imageCount; imageIndex++)
 	{
-		ACSharedArtImageSourceRef isrc = ACSharedArtImageSourceCreate(sart,index);
-		CFShow(isrc);
+		ACSharedArtImageSourceRef isrc = ACSharedArtImageSourceCreate(sart,imageIndex);
+		for (CFIndex entryIndex = 0; entryIndex < ACSharedArtImageSourceGetEntryCount(isrc);entryIndex++)
+			ACSharedArtImageSourceWriteResourceToPathAtIndex(isrc, basePath, entryIndex);
 		
-		for (int imageIndex = 0; imageIndex < ACSharedArtImageSourceGetEntryCount(isrc);imageIndex++)
-		{
-			
-			UInt16 type = ACSharedArtImageSourceGetType(isrc);
-			
-			if (type == kSharedArtImageTypeHIRes || type == kSharedArtImageTypeImage)
-			{
-				CGImageRef imgRef = ACSharedArtImageSourceCreateImageAtIndex(isrc,imageIndex);
-				CFURLRef baseURLRef = CFURLCreateWithFileSystemPath(kCFAllocatorDefault,path,kCFURLPOSIXPathStyle,true);
-				CFStringRef fileTypeRef;
-					if (imageIndex == 1 && type == kSharedArtImageTypeHIRes)
-						fileTypeRef = CFSTR("%d-HIRes.png");
-					else if (imageIndex == 0 && (type == kSharedArtImageTypeHIRes) && (ACSharedArtImageSourceGetEntryCount(isrc) == 1))
-						fileTypeRef = CFSTR("%d-HIRes.png");
-					else 
-						fileTypeRef = CFSTR("%d.png");
-				CFStringRef fileString = CFStringCreateWithFormat(kCFAllocatorDefault,NULL,fileTypeRef,index,imageIndex);
-				CFURLRef urlRef = CFURLCreateWithFileSystemPathRelativeToBase(kCFAllocatorDefault,fileString,kCFURLPOSIXPathStyle,false,baseURLRef);
-				bool result = ACWriteCGImageToPathAsPNG(imgRef,urlRef);
-				CFRelease(baseURLRef);
-				CFRelease(fileString);
-				CFRelease(fileTypeRef);
-				CFRelease(urlRef);
-				CGImageRelease(imgRef);
-			}
-			else if (type == kSharedArtImageTypePDF)
-			{
-				CFURLRef baseURLRef = CFURLCreateWithFileSystemPath(kCFAllocatorDefault,path,kCFURLPOSIXPathStyle,true);
-				CFStringRef fileString = CFStringCreateWithFormat(kCFAllocatorDefault,NULL,imageIndex == 0 ? CFSTR("%d.pdf") : CFSTR("%d.png") ,index,imageIndex);
-				CFURLRef urlRef = CFURLCreateWithFileSystemPathRelativeToBase(kCFAllocatorDefault,fileString,kCFURLPOSIXPathStyle,false,baseURLRef);
-				if (imageIndex == 0)
-				{
-					CFDataRef pdfData = ACSharedArtImageSourceCreateDataAtIndex(isrc,imageIndex);
-					ACWriteCFDataToPathAsPDF(pdfData,urlRef);
-					CFRelease(pdfData);
-				}
-				else if (imageIndex == 1)
-				{
-					CGImageRef pdfImage = ACSharedArtImageSourceCreateImageAtIndex(isrc,imageIndex);
-					bool result = ACWriteCGImageToPathAsPNG(pdfImage,urlRef);
-					CGImageRelease(pdfImage);
-				}
-				CFRelease(baseURLRef);
-				CFRelease(fileString);
-				CFRelease(urlRef);
-			}
-		}
 		CFRelease(isrc);
 	}
 }
 
-inline CFIndex __ACSharedArtGetType(ACSharedArtRef sart)
+
+CFIndex __ACSharedArtGetType(ACSharedArtRef sart)
 {
 	return __CFBitfieldGetValue(sart->flags,1,0);
 }

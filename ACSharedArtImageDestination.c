@@ -90,7 +90,7 @@ static ACSharedArtImageDestinationRef __ACSharedArtImageDestinationInit(CFAlloca
 			CFDataRef pdfData = ACSharedArtImageSourceCreateDataAtIndex(reader, 0);
 			CGImageRef pdfImage = ACSharedArtImageSourceCreateImageAtIndex(reader, 1);
 			CFDictionarySetValue(memory->data, PDF_DATA_KEY, pdfData);
-			CFDictionarySetValue(memory->data, PDF_IMAGE_KEY, pdfImage);
+			CFDictionarySetValue(memory->data, REG_IMAGE_KEY, pdfImage);
 			CFRelease(pdfData);
 			CFRelease(pdfImage);
 			break;
@@ -116,6 +116,30 @@ ACSharedArtImageDestinationRef ACSharedArtImageDestinationCreate(ACMutableShared
 	return __ACSharedArtImageDestinationInit(NULL, owner, headerIndex);
 }
 
+CFDataRef ACSharedArtImageDestinationGetResourceDataAtIndex(ACSharedArtImageDestinationRef idst, CFIndex index)
+{
+	CFStringRef key = __ACSharedArtImageDestinationGetKeyForDataAtIndex(idst, index);
+	if (ACSharedArtImageDestinationGetType(idst) == kSharedArtImageTypePDF && index == 0)
+		return CFDictionaryGetValue(idst->data, key);
+	else
+		return ACImageGetData((CGImageRef) CFDictionaryGetValue(idst->data, key));
+}
+
+
+CFStringRef __ACSharedArtImageDestinationGetKeyForDataAtIndex(ACSharedArtImageDestinationRef idst, CFIndex index)
+{
+	ACSharedArtImageType type = ACSharedArtImageDestinationGetType(idst);
+	CFStringRef keyToUse;
+	if (type == kSharedArtImageTypePDF && index == 0)
+		keyToUse = PDF_DATA_KEY;
+	else if (ACSharedArtImageDestinationIsSpecialHIRes(idst) || (type == kSharedArtImageTypeHIRes && index == 1))
+		keyToUse = HIRES_IMAGE_KEY;
+	else 
+		keyToUse = REG_IMAGE_KEY;
+	
+	return keyToUse;
+}
+
 /* This image data is expected to be in ARGB format, if it isn't please use the ACUtilities  ACARGBImageFromRGBAImage function first
  and pass the result */
 bool ACSharedArtImageDestinationSetImageAtIndex(ACSharedArtImageDestinationRef idst, CGImageRef newImage, CFIndex index)
@@ -138,16 +162,10 @@ bool ACSharedArtImageDestinationSetImageAtIndex(ACSharedArtImageDestinationRef i
 			return true;
 		case kSharedArtImageTypeHIRes:
 			if (ACSharedArtImageDestinationGetEntryCount(idst) == 1)
-			{
-				if (idst->headerIndex == 201)
-					printf("you should not be here \n");
 				CFDictionarySetValue(idst->data,HIRES_IMAGE_KEY, newImage);
-			}
 			else 
 			{
 				CFStringRef key = index == 0 ? REG_IMAGE_KEY : HIRES_IMAGE_KEY;
-				if (idst->headerIndex == 201)
-					CFShow(key);
 				CFDictionarySetValue(idst->data, key , newImage);
 			}
 			return true;
@@ -201,6 +219,11 @@ uint16_t ACSharedArtImageDestinationGetEntryCount(ACSharedArtImageDestinationRef
 	return idst->entryCount;
 }
 
+
+bool ACSharedArtImageDestinationIsSpecialHIRes(ACSharedArtImageDestinationRef idst)
+{
+	return ACSharedArtImageDestinationGetType(idst) == kSharedArtImageTypeHIRes && ACSharedArtImageDestinationGetEntryCount(idst) == 1;
+}
 		
 uint16_t ACSharedArtImageDestinationGetType(ACSharedArtImageDestinationRef idst)
 {

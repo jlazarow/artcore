@@ -9,38 +9,7 @@
 
 #include "ACUtilities.h"
 #include <CoreFoundation/CFURLAccess.h>
-#import <Accelerate/Accelerate.h>
 
-bool ACWriteCGImageToPath(CGImageRef imageRef,CFStringRef imageType, CFURLRef path)
-{
-	CGImageDestinationRef destRef = CGImageDestinationCreateWithURL(path,imageType,1,NULL);
-	CGImageDestinationAddImage(destRef,imageRef,NULL);
-	bool result = CGImageDestinationFinalize(destRef);
-	CFRelease(destRef);
-	return result;
-}
-
-bool ACWriteCGImageToPathAsPNG(CGImageRef imageRef, CFURLRef path)
-{
-	return ACWriteCGImageToPath(imageRef,kUTTypePNG,path);
-}
-
-bool ACWriteCGImageToPathAsPDF(CGImageRef imageRef, CFURLRef path)
-{
-	return ACWriteCGImageToPath(imageRef,kUTTypePDF,path);
-}
-
-bool ACWriteCGImageToPathAsTIFF(CGImageRef imageRef, CFURLRef path)
-{
-	return ACWriteCGImageToPath(imageRef,kUTTypeTIFF,path);
-}
-
-SInt32 ACWriteCFDataToPathAsPDF(CFDataRef dataRef, CFURLRef path)
-{
-	SInt32 err;
-	CFURLWriteDataAndPropertiesToResource(path,dataRef,NULL,&err);
-	return err;
-}
 
 CGImageRef ACReadImageAtPath(CFStringRef path)
 {
@@ -67,7 +36,18 @@ CGImageRef ACARGBImageFromRGBAImage(CGImageRef image)
 	CFIndex length = CFDataGetLength(imageData);
 	uint8_t pixelData[length];
 	CFDataGetBytes(imageData,CFRangeMake(0, length), pixelData);
-	
+	/* RGBA to premul ARGB conversion */
+	for (CFIndex pixelIndex = 0; pixelIndex < length; pixelIndex += 4)
+	{
+		uint8_t a = pixelData[pixelIndex+3];
+		uint8_t r = pixelData[pixelIndex];
+		uint8_t g = pixelData[pixelIndex+1];
+		uint8_t b = pixelData[pixelIndex+2];
+		pixelData[pixelIndex] = a;
+		pixelData[pixelIndex+1] = (r * a) / 255;
+		pixelData[pixelIndex+2] = (g * a) / 255;
+		pixelData[pixelIndex+3] = (b * a) / 255;
+	}
 	/* save data */
 	size_t width = CGImageGetWidth(image);
 	size_t height = CGImageGetHeight(image);
@@ -76,20 +56,7 @@ CGImageRef ACARGBImageFromRGBAImage(CGImageRef image)
 	size_t bytesPerRow = CGImageGetBytesPerRow(image);
 	CGColorSpaceRef colorSpace = CGImageGetColorSpace(image);
 	CGBitmapInfo info = CGImageGetBitmapInfo(image);
-	
-	/* transform data */
-	
-	vImage_Buffer transformBuffer;
-	transformBuffer.data = pixelData;
-	transformBuffer.height = height;
-	transformBuffer.width = width;
-	transformBuffer.rowBytes = bytesPerRow;
-	vImage_Buffer destinationBuffer = transformBuffer;
-	uint8_t transformMap[] = { 3, 0, 1, 2 };
-	vImagePermuteChannels_ARGB8888(&transformBuffer, &destinationBuffer, transformMap, kvImageDoNotTile);
-	
-	
-	/* wrap the pixelData into a CFData since pixelData is gone after this method returns */
+
 	CFDataRef pixelCFData = CFDataCreate(NULL, pixelData, length);
 	CGDataProviderRef newProvider = CGDataProviderCreateWithCFData(pixelCFData);
 	CFRelease(pixelCFData);
